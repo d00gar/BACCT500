@@ -66,7 +66,7 @@ log using Stat1.log, t replace
 
 *   If you have ever searched any accounting, legal or tax codification, this 
 *   iterative and sometimes lengthy research process should be familiar, so 
-*   rememebr to be patient with yourself. And, if you are yet to experience the 
+*   remember to be patient with yourself. And, if you are yet to experience the 
 *   joys of searching FARS or RIA or Lexis-Nexis, be happy that Stata is far
 *   more structured and easy to research.  Guaranteed. :) 
 *    

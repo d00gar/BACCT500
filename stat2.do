@@ -85,7 +85,7 @@ o A factory is a dgp.  A product line is a dgp.  Accounts receivable is a dgp.
 
 * Let us start by generating some random variables
 clear                    // clear data in memory
-set obs 2500             // set sample size
+set obs 250000             // set sample size
 set seed 34786543        // initialize random number generator (using the same seed for comparability)
 
 * generate realizations from some widely used classes of random functions:
@@ -144,11 +144,13 @@ la var chi2100  "rv, chi2(100)"
 g  f22          = invF(2,2,unif)
 la var f22      "rv, F(2,2)"
 g  f2100        = invF(2,100,unif)
-la var f22      "rv, F(2,100)"
+la var f2100    "rv, F(2,100)"
 
  // t
 g  t10          =rt(10)
 la var t10      "rv, t(10)"
+g  t30          =rt(30)
+la var t30      "rv, t(30)"
 g  t100         =rt(100)
 la var t10      "rv, t(100)"
 
@@ -175,6 +177,17 @@ local varlist "unif norm chi22 f2100 t100"
 local varlist "unif norm"
 di `"`varlist'"'
 
+* add code to plot f(x)
+foreach x of varlist " "
+kdensity `x', saving(kdensity_`x', replace)
+}
+
+* add code to visually compare distirbutions 
+
+* now plot F(x)
+ // univariate plot
+ 
+ // two at a time etc ...
 foreach x of var `varlist' {
 foreach y of var `varlist' {
 if "`x'"!="`y'" {
