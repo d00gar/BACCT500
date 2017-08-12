@@ -15,10 +15,12 @@
 # You may add graphic export files to your .gitignore. However you should be
 # aware that this will exclude all image files from this main directory
 # and subdirectories.
-# *.ps
-# *.eps
-# *.wmf
-# *.emf
-# *.pdf
-# *.png
-# *.tif
+*.ps
+*.eps
+*.wmf
+*.emf
+*.pdf
+*.png
+*.tif
+*.db
+*.gitignore
