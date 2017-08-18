@@ -72,7 +72,7 @@ o A factory is a dgp.  A product line is a dgp.  Accounts receivable is a dgp.
 	   has its own challenges
    > In sum: With some luck, statistics can help us know closely enough if some 
        "standard" dgp can be assumed to describe - at least to an acceptable
-	   degree of closelness, the actual dgp from which the data are drawn. The 
+	   degree of closelness, the Theoretical dgp from which the data are drawn. The 
 	   process of identifyng the dgp is called "estimation (of dgp parameters)."
  
    + for a posited dgp one can use the sample of realizations to form and test 
@@ -178,166 +178,275 @@ local varlist unif norm
 di "`varlist'"
 
 
-* binomial(n,k,p)   nbinomial(n,k,p)   poisson(m,k)   t(,t)  chi2(df,x)   ibeta(a,b,x)  F(df1,df2,f) 
-
 * add code to plot f(x)
 * add code to visually compare distirbutions 
-* Plots of actual f(x) added on a graph with histogram and kernel density by Agraj
+* Plots of Theoretical f(x) added on a graph with histogram and kernel density by Agraj
 * now plot F(x)
  // univariate plot
-twoway (histogram bin705) (kdensity bin705, lpattern(solid)) (function binomialp(7,x,0.05), range(bin705)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin705)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_bin705.png", as(png) replace
+twoway (histogram bin705) (kdensity bin705, lpattern(solid)) (function binomialp(7,x,0.05), range(bin705)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin705)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_bin705.png", as(png) replace
 sort bin705
 gen F_bin705 = _n/_N
-twoway (line F_bin705 bin705, sort) (function binomial(7,x,0.05), range(bin705)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin705)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_bin705 bin705, sort) (function binomial(7,x,0.05), range(bin705)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin705)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_bin705.png", as(png) replace
 ********************************************************************************
-twoway (histogram bin7005) (kdensity bin7005, lpattern(solid)) (function binomialp(70,x,0.05), range(bin7005)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin7005)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_bin7005.png", as(png) replace
+twoway (histogram bin7005) (kdensity bin7005, lpattern(solid)) (function binomialp(70,x,0.05), range(bin7005)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin7005)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_bin7005.png", as(png) replace
 sort bin7005
 gen F_bin7005 = _n/_N
-twoway (line F_bin7005 bin7005, sort) (function binomial(70,x,0.05), range(bin7005)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin7005)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_bin7005 bin7005, sort) (function binomial(70,x,0.05), range(bin7005)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (bin7005)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_bin7005.png", as(png) replace
 ********************************************************************************
-twoway (histogram nbin705) (kdensity nbin705, lpattern(solid)) (function nbinomialp(7,x,0.05), range(nbin705)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin705)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_nbin705.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Binomial Distribution B(n,p)
+* (1) n=, p= 
+* (2) n=, p= 
+* (3) n=, p= 
+* (4) n=, p= 
+* (5) n=, p= 
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram nbin705) (kdensity nbin705, lpattern(solid)) (function nbinomialp(7,x,0.05), range(nbin705)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin705)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_nbin705.png", as(png) replace
 sort nbin705
 gen F_nbin705 = _n/_N
-twoway (line F_nbin705 nbin705, sort) (function nbinomial(7,x,0.05), range(nbin705)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin705)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_nbin705 nbin705, sort) (function nbinomial(7,x,0.05), range(nbin705)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin705)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_nbin705.png", as(png) replace
 ********************************************************************************
-twoway (histogram nbin7005) (kdensity nbin7005, lpattern(solid)) (function nbinomialp(70,x,0.05), range(nbin7005)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin7005)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_nbin7005.png", as(png) replace
+twoway (histogram nbin7005) (kdensity nbin7005, lpattern(solid)) (function nbinomialp(70,x,0.05), range(nbin7005)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin7005)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_nbin7005.png", as(png) replace
 sort nbin7005
 gen F_nbin7005 = _n/_N
-twoway (line F_nbin7005 nbin7005, sort) (function nbinomial(70,x,0.05), range(nbin7005)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin7005)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_nbin7005 nbin7005, sort) (function nbinomial(70,x,0.05), range(nbin7005)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (nbin7005)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_nbin7005.png", as(png) replace
 ********************************************************************************
-twoway (histogram pois5) (kdensity pois5, lpattern(solid)) (function poissonp(5,x), range(pois5)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois5)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_pois5.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Negative Binomial Distribution NB(n,p)
+* (1) n=, p= 
+* (2) n=, p= 
+* (3) n=, p= 
+* (4) n=, p= 
+* (5) n=, p= 
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram pois5) (kdensity pois5, lpattern(solid)) (function poissonp(5,x), range(pois5)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois5)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_pois5.png", as(png) replace
 sort pois5
 gen F_pois5 = _n/_N
-twoway (line F_pois5 pois5, sort) (function poisson(5,x), range(pois5)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois5)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_pois5 pois5, sort) (function poisson(5,x), range(pois5)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois5)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_pois5.png", as(png) replace
 ********************************************************************************
-twoway (histogram pois15) (kdensity pois15, lpattern(solid)) (function poissonp(15,x), range(pois15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_pois15.png", as(png) replace
+twoway (histogram pois15) (kdensity pois15, lpattern(solid)) (function poissonp(15,x), range(pois15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_pois15.png", as(png) replace
 sort pois15
 gen F_pois15 = _n/_N
-twoway (line F_pois15 pois15, sort) (function poisson(15,x), range(pois15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_pois15 pois15, sort) (function poisson(15,x), range(pois15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (pois15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_pois15.png", as(png) replace
+
 ********************************************************************************
-twoway (histogram unif) (kdensity unif, lpattern(solid)) (function 1/(1-0), range(unif)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_unif.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Poisson distribution Pois(n,p)
+* (1) lambda =
+* (2) lambda =
+* (3) lambda =
+* (4) lambda =
+* (5) lambda =
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram unif) (kdensity unif, lpattern(solid)) (function 1/(1-0), range(unif)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_unif.png", as(png) replace
 sort unif
 gen F_unif = _n/_N
-twoway (line F_unif unif, sort) (function (x)/(1-0), range(unif)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_unif unif, sort) (function (x)/(1-0), range(unif)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_unif.png", as(png) replace
 ********************************************************************************
-twoway (histogram unif28) (kdensity unif28, lpattern(solid)) (function 1/(8-2), range(unif28)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif28)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_unif28.png", as(png) replace
+twoway (histogram unif28) (kdensity unif28, lpattern(solid)) (function 1/(8-2), range(unif28)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif28)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_unif28.png", as(png) replace
 sort unif28
 gen F_unif28 = _n/_N
-twoway (line F_unif28 unif28, sort) (function (x-2)/(8-2), range(unif28)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif28)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_unif28 unif28, sort) (function (x-2)/(8-2), range(unif28)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (unif28)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_unif28.png", as(png) replace
 ********************************************************************************
-twoway (histogram norm) (kdensity norm, lpattern(solid)) (function normalden(x,0,1), range(norm)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_norm.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Uniform Distribution U(a,b)
+* (1) a=, b=
+* (2) a=, b=
+* (3) a=, b=
+* (4) a=, b=
+* (5) a=, b=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram norm) (kdensity norm, lpattern(solid)) (function normalden(x,0,1), range(norm)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_norm.png", as(png) replace
 sort norm
 gen F_norm = _n/_N
-twoway (line F_norm norm, sort) (function  normal(x), range(norm)) , ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_norm norm, sort) (function  normal(x), range(norm)) , ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_norm.png", as(png) replace
 ********************************************************************************
-twoway (histogram norm2) (kdensity norm2, lpattern(solid)) (function normalden(x,2,1), range(norm2)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm2)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_norm2.png", as(png) replace
+twoway (histogram norm2) (kdensity norm2, lpattern(solid)) (function normalden(x,2,1), range(norm2)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm2)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_norm2.png", as(png) replace
 sort norm2
 gen F_norm2 = _n/_N
-twoway (line F_norm2 norm2, sort) (function normal((x-2)/1), range(norm2)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm2)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_norm2 norm2, sort) (function normal((x-2)/1), range(norm2)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm2)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_norm2.png", as(png) replace
 ********************************************************************************
-twoway (histogram norm78) (kdensity norm78, lpattern(solid)) (function normalden(x,7,8), range(norm78)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm78)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_norm78.png", as(png) replace
+twoway (histogram norm78) (kdensity norm78, lpattern(solid)) (function normalden(x,7,8), range(norm78)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm78)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_norm78.png", as(png) replace
 sort norm78
 gen F_norm78 = _n/_N
-twoway (line F_norm78 norm78, sort) (function normal((x-7)/8), range(norm78)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm78)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_norm78 norm78, sort) (function normal((x-7)/8), range(norm78)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (norm78)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_norm78.png", as(png) replace
 ********************************************************************************
-twoway (histogram chi210) (kdensity chi210, lpattern(solid)) (function chi2den(10,x), range(chi210)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi210)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_chi210.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Normal Distribution N(mu, sigma)
+* (1) mu=, sigma=
+* (2) mu=, sigma=
+* (3) mu=, sigma=
+* (4) mu=, sigma=
+* (5) mu=, sigma=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram chi210) (kdensity chi210, lpattern(solid)) (function chi2den(10,x), range(chi210)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi210)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_chi210.png", as(png) replace
 sort chi210
 gen F_chi210 = _n/_N
-twoway (line F_chi210 chi210, sort) (function chi2(10,x), range(chi210)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi210)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_chi210 chi210, sort) (function chi2(10,x), range(chi210)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi210)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_chi210.png", as(png) replace
 ********************************************************************************
-twoway (histogram chi2100) (kdensity chi2100, lpattern(solid)) (function chi2den(100,x), range(chi2100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi2100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_chi2100.png", as(png) replace
+twoway (histogram chi2100) (kdensity chi2100, lpattern(solid)) (function chi2den(100,x), range(chi2100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi2100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_chi2100.png", as(png) replace
 sort chi2100
 gen F_chi2100 = _n/_N
-twoway (line F_chi2100 chi2100, sort) (function chi2(100,x), range(chi2100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi2100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_chi2100 chi2100, sort) (function chi2(100,x), range(chi2100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (chi2100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_chi2100.png", as(png) replace
 ********************************************************************************
-twoway (histogram f22) (kdensity f22, lpattern(solid)) (function Fden(2,2,x), range(f22)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f22)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte)  scale(0.8)
-graph export "f_f22.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Chi-square Distribution Chi(k)
+* (1) k=
+* (2) k=
+* (3) k=
+* (4) k=
+* (5) k=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram f22) (kdensity f22, lpattern(solid)) (function Fden(2,2,x), range(f22)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f22)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte)  scale(0.8)
+graph export "Den_f22.png", as(png) replace
 sort f22
 gen F_f22 = _n/_N
-twoway (line F_f22 f22, sort) (function F(2,2,x), range(f22)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f22)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte)  scale(0.8) 
+twoway (line F_f22 f22, sort) (function F(2,2,x), range(f22)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f22)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte)  scale(0.8) 
 graph export "F_f22.png", as(png) replace
 ********************************************************************************
-twoway (histogram f2100) (kdensity f2100, lpattern(solid)) (function Fden(2,100,x), range(f2100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f2100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_f2100.png", as(png) replace
+twoway (histogram f2100) (kdensity f2100, lpattern(solid)) (function Fden(2,100,x), range(f2100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f2100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_f2100.png", as(png) replace
 sort f2100
 gen F_f2100 = _n/_N
-twoway (line F_f2100 f2100, sort) (function F(2,100,x), range(f2100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f2100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_f2100 f2100, sort) (function F(2,100,x), range(f2100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (f2100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_f2100.png", as(png) replace
 ********************************************************************************
-twoway (histogram t10) (kdensity t10, lpattern(solid)) (function tden(10,x), range(t10)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t10)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_t10.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of F Distribution F(d1, d2)
+* (1) d1=, d2=
+* (2) d1=, d2=
+* (3) d1=, d2=
+* (4) d1=, d2=
+* (5) d1=, d2=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram t10) (kdensity t10, lpattern(solid)) (function tden(10,x), range(t10)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t10)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_t10.png", as(png) replace
 sort t10
 gen F_t10 = _n/_N
-twoway (line F_t10 t10, sort) (function t(10,x), range(t10)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t10)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_t10 t10, sort) (function t(10,x), range(t10)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t10)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_t10.png", as(png) replace
 ********************************************************************************
-twoway (histogram t30) (kdensity t30, lpattern(solid)) (function tden(30,x) , range(t30)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t30)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_t30.png", as(png) replace
+twoway (histogram t30) (kdensity t30, lpattern(solid)) (function tden(30,x) , range(t30)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t30)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_t30.png", as(png) replace
 sort t30
 gen F_t30 = _n/_N
-twoway (line F_t30 t30, sort) (function t(30,x), range(t30)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t30)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_t30 t30, sort) (function t(30,x), range(t30)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t30)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_t30.png", as(png) replace
 ********************************************************************************
-twoway (histogram t100) (kdensity t100, lpattern(solid)) (function tden(100,x) , range(t100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_t100.png", as(png) replace
+twoway (histogram t100) (kdensity t100, lpattern(solid)) (function tden(100,x) , range(t100)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t100)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_t100.png", as(png) replace
 sort t100
 gen F_t100 = _n/_N
-twoway (line F_t100 t100, sort) (function t(100,x), range(t100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_t100 t100, sort) (function t(100,x), range(t100)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (t100)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_t100.png", as(png) replace
 ********************************************************************************
-twoway (histogram beta11) (kdensity beta11, lpattern(solid)) (function betaden(1,1,x) , range(beta11)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta11)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_beta11.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of T Distribution T(v)
+* (1) v=
+* (2) v=
+* (3) v=
+* (4) v=
+* (5) v=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram beta11) (kdensity beta11, lpattern(solid)) (function betaden(1,1,x) , range(beta11)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta11)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_beta11.png", as(png) replace
 sort beta11
 gen F_beta11 = _n/_N
-twoway (line F_beta11 beta11, sort) (function  ibeta(1,1,x)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta11)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_beta11 beta11, sort) (function  ibeta(1,1,x)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta11)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_beta11.png", as(png) replace
 ********************************************************************************
-twoway (histogram beta15) (kdensity beta15, lpattern(solid)) (function betaden(1,5,x) , range(beta15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_beta15.png", as(png) replace
+twoway (histogram beta15) (kdensity beta15, lpattern(solid)) (function betaden(1,5,x) , range(beta15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_beta15.png", as(png) replace
 sort beta15
 gen F_beta15 = _n/_N
-twoway (line F_beta15 beta15, sort) (function ibeta(1,5,x), range(beta15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_beta15 beta15, sort) (function ibeta(1,5,x), range(beta15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (beta15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_beta15.png", as(png) replace
 ********************************************************************************
-twoway (histogram gamma11) (kdensity gamma11, lpattern(solid)) (function gammaden(1,1,0,x) , range(gamma11)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma11)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_gamma11.png", as(png) replace
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Beta Distribution Beta(alpha, beta)
+* (1) alpha= , beta=
+* (2) alpha= , beta=
+* (3) alpha= , beta=
+* (4) alpha= , beta=
+* (5) alpha= , beta=
+********************************************************************************
+********************************************************************************
+********************************************************************************
+twoway (histogram gamma11) (kdensity gamma11, lpattern(solid)) (function gammaden(1,1,0,x) , range(gamma11)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma11)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_gamma11.png", as(png) replace
 sort gamma11
 gen F_gamma11 = _n/_N
-twoway (line F_gamma11 gamma11, sort) (function  gammap(1,(x-0)/(1)), range(gamma11)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma11)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_gamma11 gamma11, sort) (function  gammap(1,(x-0)/(1)), range(gamma11)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma11)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_gamma11.png", as(png) replace
 ********************************************************************************
-twoway (histogram gamma15) (kdensity gamma15, lpattern(solid)) (function gammaden(1,5,0,x) , range(gamma15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Actual")) scheme(tufte) scale(0.8)
-graph export "f_gamma15.png", as(png) replace
+twoway (histogram gamma15) (kdensity gamma15, lpattern(solid)) (function gammaden(1,5,0,x) , range(gamma15)), ytitle(Density) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma15)) xlabel(#10, grid)  legend(order(1 "Histogram" 2 "Kernel" 3 "Theoretical")) scheme(tufte) scale(0.8)
+graph export "Den_gamma15.png", as(png) replace
 sort gamma15
 gen F_gamma15 = _n/_N
-twoway (line F_gamma15 gamma15, sort) (function  gammap(1,(x-0)/(5)), range(gamma15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Actual Distribution")) scheme(tufte) scale(0.8) 
+twoway (line F_gamma15 gamma15, sort) (function  gammap(1,(x-0)/(5)), range(gamma15)), ytitle(Cumulative Probability) ylabel(#10, angle(horizontal) grid) xtitle(Random Variable (gamma15)) xlabel(#10, grid)  legend(order(1 "Empirical Distribution" 2 "Theoretical Distribution")) scheme(tufte) scale(0.8) 
 graph export "F_gamma15.png", as(png) replace
+********************************************************************************
+************************ HOMEWORK EXERCISE *************************************
+********************************************************************************
+* Generate the same graphs for the following parameter values of Gamma Distribution Gamma(k,theta)
+* (1) k= , theta=
+* (2) k= , theta=
+* (3) k= , theta=
+* (4) k= , theta=
+* (5) k= , theta=
+********************************************************************************
+********************************************************************************
 ********************************************************************************
 
 
