@@ -24,3 +24,7 @@
 *.tif
 *.db
 *.gitignore
+
+*.csv
+*.xls
+*.xlsx

@@ -32,9 +32,9 @@
 
 
 
-*capture log close 
-log using NPRatioCreationV5_run3, t replace
-use "\\netid.washington.edu\csde\homes\udrive\BACCT600\clean_INDL.dta", clear
+capture log close 
+*log using NPRatioCreation, t replace
+use "clean_INDL.dta", clear
 set more off
 
 *Macros
@@ -67,6 +67,8 @@ local Gvar `"reg greoi gcse gnoa gfcf"'
 local npratios `"`rocevar' `CIvar' `Gvar'"'
 
 * Data inspection & cleaning
+* Describe data
+desc
 ** identify and delete duplicates
 summ ryear, det
 duplicates drop gvkey ryear, force
@@ -88,8 +90,13 @@ la var imiss "# of missing ivars"
 tab bmiss, missing
 tab imiss, m
 * tabulate key values of the underlying compustat variables
-tabstat `npbvar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)  
-tabstat `npivar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `npbvar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) /* f(%9.2f) */ 
+* Exporting as csv
+esttab using npbvar.csv, cells("`npbvar'") nomtitle nonumber replace
+
+estpost tabstat `npivar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) /* f(%9.2f) */ 
+* Exporting as csv
+esttab using npivar.csv, cells("`npivar'") nomtitle nonumber replace
 
 *foreach x of var `npbvar' `npivar' {
 * summ `x', det                                              // uncomment as needed
@@ -308,7 +315,10 @@ winsor2 `npratios', replace cuts(1 99)
 
 
 * Panel A.1 Full period
-tabstat `rocevar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `rocevar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using rocevar.csv, cells("`rocevar'") nomtitle nonumber replace
+
 table ryear, c(n msr mean msr sd msr p95 msr p90 msr) row 
   // the mean of msr is obviously unreasonable. by table we can see that there 
   //  is an abnormally high mean in 1998 and very low (negative in 1991)
@@ -317,11 +327,14 @@ table ryear, c(n msr mean msr sd msr p95 msr p90 msr) row
 	//// *Does not comply to the conclusion with #3:  SD of roce is not higher than rotce, which is caused by post-NP period 	
 
 * Panel A.2 for NP period only
-tabstat `rocevar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `rocevar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using rocevar19901999.csv, cells("`rocevar'") nomtitle nonumber replace
 
 * Panel A.3 for post-NP period
-tabstat `rocevar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
- 
+estpost tabstat `rocevar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using rocevar20002016.csv, cells("`rocevar'") nomtitle nonumber replace 
 
  
  ****Panel B Additional ratios of ROCE Drivers in extensive analysis *****
@@ -335,27 +348,51 @@ tabstat `rocevar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95
 
 
 * Panel B.1 Full period
-tabstat `CIvar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
-tabstat `Gvar' , statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `CIvar', statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using CIvar.csv, cells("`CIvar'") nomtitle nonumber replace
+
+
+
+estpost tabstat `Gvar' , statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using Gvar.csv, cells("`Gvar'") nomtitle nonumber replace
 
 * Panel B.2 for NP period only
-tabstat `CIvar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
-tabstat `Gvar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `CIvar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using CIvar19901999.csv, cells("`CIvar'") nomtitle nonumber replace
+
+estpost tabstat `Gvar' if ryear>=1990 & ryear<=1999, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using Gvar19901999.csv, cells("`Gvar'") nomtitle nonumber replace
 
 * Panel B.3 for post-NP period
-tabstat `CIvar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
-tabstat `Gvar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) f(%9.2f)
+estpost tabstat `CIvar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using CIvar20002016.csv, cells("`CIvar'") nomtitle nonumber replace
+
+estpost tabstat `Gvar' if ryear>=2000 & ryear<=2016, statistics(n mean sd max p99 p95 p90 p75 p50 p25 p5 p1 min) // f(%9.2f)
+* Exporting as csv
+esttab using Gvar20002016.csv, cells("`Gvar'") nomtitle nonumber replace
 
 *Understand correlations among NP iterim vars and among NP ratios
 local npinterim `"fa oa fo cse mi nfo noa ol core_nfe ufe csa nfe cni oi other_it oi_sales sales uoi coreoi_sales io core_oi r IE td"'
 *Full period
-cor `npinterim'
+estpost cor `npinterim', matrix
+* Exporting as csv
+esttab using Cor_npinterim.csv, unstack noobs not nomtitle nonumber replace
+
 *corsp `npinterim'
 *NP Period only
-cor `npinterim' if ryear>=1990 & ryear<=1999
+*NEED TO CHECK
+*estpost cor `npinterim' if ryear>=1990 & ryear<=1999, matrix
+*esttab using Cor_npinterim19901999.csv, unstack noobs not nomtitle nonumber replace
 *corsp `npinterim' if ryear>=1990 & ryear<=1999
 *Post-NP period
-cor `npinterim' if ryear>=2000 & ryear<=2016
+*NEED TO CHECK
+*estpost cor `npinterim' if ryear>=2000 & ryear<=2016, matrix
+*esttab using Cor_npinterim20002016.csv, unstack noobs not nomtitle nonumber replace
 *corsp `npinterim' if ryear>=2000 & ryear<=2016
 
 local rocevar `"roce msr rotce rnoa rota ollev olspread flev tflev nbc spread pm ato"'  
@@ -363,13 +400,19 @@ local CIvar `"sales_pm csales_pm ps u_rnoa core_rnoa core_nbc u_nbc core_spread"
 local Gvar `"reg greoi gcse gnoa gfcf"'
 local npratios `"`rocevar' `CIvar' `Gvar'"'
 *Full period
-cor `npratios'
-corsp `npratios'
+estpost cor `npratios', matrix
+esttab using Cor_npratios.csv, unstack noobs not nomtitle nonumber replace
+
+*corsp `npratios'
 *NP Period only
-cor `npratios' if ryear>=1990 & ryear<=1999 
+*NEED TO CHECK
+*estpost cor `npratios' if ryear>=1990 & ryear<=1999 , matrix
+*esttab using Cor_npratios19901999.csv, unstack noobs not nomtitle nonumber replace
 *corsp `npratios' if ryear>=1990 & ryear<=1999 
+*NEED TO CHECK
 *Post-NP period
-cor `npratios' if ryear>=2000 & ryear<=2016 
+*estpost cor `npratios' if ryear>=2000 & ryear<=2016 , matrix
+*esttab using Cor_npratios20002016.csv, unstack noobs not nomtitle nonumber replace
 *corsp `npratios' if ryear>=2000 & ryear<=2016 
 
 
@@ -378,7 +421,7 @@ cor `npratios' if ryear>=2000 & ryear<=2016
 histogram roce
 twoway (scatter roce ryear)
 *histogram roce,by(ryear)
-ttest roce == 0.17
+ttest roce == 0.17 
 ttest roce == rotce, unpaired unequal  //review of the statistics is required
 
 ***z tests (mean-comparison tests, known variance)******
@@ -415,7 +458,7 @@ foreach x of varlist `npratios npratios2 npratios3' {
 summ `x'
 } 
 
-tabstat `npratios' `npratios2' `npratios3', stat(n) // the result prove that winsorize will keep the sample size , and trim will decrease the sample size
+estpost tabstat `npratios' `npratios2' `npratios3', stat(n) // the result prove that winsorize will keep the sample size , and trim will decrease the sample size
 
 
 
